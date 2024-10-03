@@ -1,9 +1,29 @@
 import json
+import yaml
+import os
 
 
-def parser_files(pathfile1, pathfile2):
-    file1, file2 = json.load(open(pathfile1)), json.load(open(pathfile2))
-    return file1, file2
+def get_file(file):
+    dic = file.read()
+    return dic
+
+
+def get_dic_to_generate_diff(path_f):
+    with open(path_f) as f:
+        return get_file(f)
+
+
+def get_dic(pathfile):
+    _, ext = os.path.splitext(pathfile)
+    if ext == '.yml' or ext == '.yaml':
+        fy = get_dic_to_generate_diff(pathfile)
+        dic = yaml.load(fy, Loader=yaml.FullLoader)
+    elif ext == '.json':
+        fj = get_dic_to_generate_diff(pathfile)
+        dic = json.loads(fj)
+    else:
+        dic = 'ERROR'
+    return dic
 
 
 def formater_dic(diff_dic):
@@ -23,8 +43,9 @@ def formater_dic(diff_dic):
     return result
 
 
-def generate_diff(dic1, dic2):
-    dic1, dic2 = parser_files(dic1, dic2)
+def generate_diff(pathfile1, pathfil2):
+    dic1 = get_dic(pathfile1)
+    dic2 = get_dic(pathfil2)
     sort_keys = sorted(set(dic1.keys()) | set(dic2.keys()))
     diff_dic = {}
     for key in sort_keys:
