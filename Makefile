@@ -15,3 +15,10 @@ package-install-force:
 
 lint:
 	poetry run flake8 gendiff
+
+test: 
+	poetry run pytest -v
+
+check:
+	check test lint
+
