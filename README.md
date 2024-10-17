@@ -3,4 +3,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/59c04c73291342ba04b3/maintainability)](https://codeclimate.com/github/AndreyYurpalov/python-project-50/maintainability)
 
-[![Flat file comparison](https://asciinema.org/a/aRdaaYFyzrJ8QCUHSgH0oTUxY.svg)](https://asciinema.org/a/aRdaaYFyzrJ8QCUHSgH0oTUxY) 
+[![Flat file comparison](https://asciinema.org/a/aRdaaYFyzrJ8QCUHSgH0oTUxY.svg)](https://asciinema.org/a/aRdaaYFyzrJ8QCUHSgH0oTUxY)
+
+[![Diff files stylish](https://asciinema.org/a/zvfeeQzK1QEFcdUBR9FPrLkRY.svg)](https://asciinema.org/a/zvfeeQzK1QEFcdUBR9FPrLkRY
+)
