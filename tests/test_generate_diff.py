@@ -1,22 +1,25 @@
 from gendiff.gendiff import generate_diff
 import os
+import pytest
+
 
 def get_abspath(file):
     file = str(file)
     return os.path.abspath(f'tests/fixtures/{file}')
 
 
-file1_json = get_abspath('file1.json')
-file2_json = get_abspath('file2.json')
-file1_yml = get_abspath('file1.yml')
-file2_yml = get_abspath('file2.yml')
-diff_files = get_abspath('diff_file1_file2')
-with open(diff_files) as f:
-    diff = f.read()
+date_files = [
+    ('file1.json', 'file2.json', 'diff_file1_file2'),
+    ('file1.json', 'file2.yml', 'diff_file1_file2'),
+    ('file1.yml', 'file2.json', 'diff_file1_file2'),
+    ('file1.yml', 'file2.yml', 'diff_file1_file2'),
+    ('file3.json', 'file4.json', 'diff_file3_file4'),
+    ('file3.json', 'file4.yml', 'diff_file3_file4'),
+    ('file3.yml', 'file4.json', 'diff_file3_file4'),
+    ('file3.yml', 'file4.yml', 'diff_file3_file4'),]
 
 
-def test_generate_diff():
-    assert generate_diff(file1_json, file2_json) == diff
-    assert generate_diff(file1_yml, file2_yml) == diff
-    assert generate_diff(file1_json, file2_yml) == diff
-    assert generate_diff(file1_yml, file2_json) == diff
+@pytest.mark.parametrize('file1, file2, result_file', date_files)
+def test_generate_diff(file1, file2, result_file):
+    result = open(get_abspath(result_file)).read()
+    assert (generate_diff(get_abspath(file1), get_abspath(file2)) == result)
