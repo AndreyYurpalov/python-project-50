@@ -30,8 +30,10 @@ def get_stylish(diff, replase=' ', indent=4):
                 line.append(f"{line_indent}{mark[type]}{child['name']}: "
                             f"{inner(child, level + 1)}")
             elif type == 'changed':
-                line.append(f"{line_indent}{mark['deleted']}{child['name']}: "
-                            f"{get_ch_diff(child['value']['old'], level + 1)}")
+                text = (f"{line_indent}{mark['deleted']}"
+                        f"{child['name']}: "
+                        f"{get_ch_diff(child['value']['old'], level + 1)}")
+                line.append(text)
 
                 line.append(f"{line_indent}{mark['added']}{child['name']}: "
                             f"{get_ch_diff(child['value']['new'], level + 1)}")
