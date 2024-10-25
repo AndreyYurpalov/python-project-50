@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 import argparse
 from gendiff.gendiff import generate_diff
 from pathlib import Path
@@ -10,9 +13,12 @@ def main():
     parser.add_argument('first_file')
     parser.add_argument('second_file')
     parser.add_argument('-f', '--format',
-                        help='set format of output')
+                        default='stylish',
+                        help='output format (stylish (default), plain, json'
+                        )
     args = parser.parse_args()
-    result = generate_diff(Path(args.first_file), Path(args.second_file))
+    result = generate_diff(Path(args.first_file),
+                           Path(args.second_file), args.format)
     print(result)
 
 
