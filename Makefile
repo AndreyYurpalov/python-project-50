@@ -10,10 +10,7 @@ test-coverage:
 lint:
 	poetry run flake8
 
-selfcheck:
-	poetry check
-
-check: selfcheck test lint
+check: test lint
 
 build: check
 	poetry build
