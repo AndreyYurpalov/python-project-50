@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 import argparse
 from gendiff.gendiff import generate_diff
 from pathlib import Path
