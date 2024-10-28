@@ -23,7 +23,7 @@ def get_plain_tree(diff):
                         f"{get_type_value(child['value'])}")
                 line.append(text)
             elif child['type'] == 'deleted':
-                text = f"Property \'{path + child['name']} \'was removed"
+                text = f"Property \'{path + child['name']}\' was removed"
                 line.append(text)
             elif child['type'] == 'changed':
                 val = child['value']
