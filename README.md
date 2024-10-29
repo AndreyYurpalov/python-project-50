@@ -25,10 +25,16 @@ make install
 ## Сommand line usage
 ```python3
 gendiff -h #help output
-gendiff file1 file2 #out put format(stylish)
+gendiff file1 file2 #out put format stylish (default)
 gendiff -f plain file1 file2 #out put format plain
 gendiff -f json file1 file2 #out put format json
 ```
 
-### Diff all files
-[![Diff all files](https://asciinema.org/a/fQFG65UXngHA3lf5mDAHR9rTJ.svg)](https://asciinema.org/a/fQFG65UXngHA3lf5mDAHR9rTJ)
+### compare files in format STYLISH
+[![Diff files format:stylish](https://asciinema.org/a/q0M5Wwb3QeNyKMwvmBSZStnst.svg)](https://asciinema.org/a/q0M5Wwb3QeNyKMwvmBSZStnst)
+
+### compare files in format PLAIN
+[![Diff files format:plain](https://asciinema.org/a/ouLp4So0sSze6suINQhzbLHBv.svg)](https://asciinema.org/a/ouLp4So0sSze6suINQhzbLHBv)
+
+### compare files in format JSON
+[![Diff files format:json](https://asciinema.org/a/XZAcxH3Th1QBvecd4emPlcD7R.svg)](https://asciinema.org/a/XZAcxH3Th1QBvecd4emPlcD7R)
