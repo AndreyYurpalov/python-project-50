@@ -1,7 +1,7 @@
 from gendiff.formatters.str_lower import str_lower
 
 
-def get_type_value(value):
+def to_str(value):
     if isinstance(value, dict):
         return '[complex value]'
     if isinstance(value, str):
@@ -20,7 +20,7 @@ def get_plain_tree(diff):
             elif child['type'] == 'added':
                 text = (f"Property \'{path + child['name']}\' "
                         f"was added with value: "
-                        f"{get_type_value(child['value'])}")
+                        f"{to_str(child['value'])}")
                 line.append(text)
             elif child['type'] == 'deleted':
                 text = f"Property \'{path + child['name']}\' was removed"
@@ -28,8 +28,8 @@ def get_plain_tree(diff):
             elif child['type'] == 'changed':
                 val = child['value']
                 text = (f"Property \'{path + child['name']}\' "
-                        f"was updated. From {get_type_value(val['old'])} "
-                        f"to {get_type_value(val['new'])}")
+                        f"was updated. From {to_str(val['old'])} "
+                        f"to {to_str(val['new'])}")
                 line.append((text))
             elif child['type'] == 'unchanged':
                 continue
