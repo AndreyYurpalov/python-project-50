@@ -10,22 +10,25 @@ REPLACE = ' '
 MARK_SIZE = 2
 
 
-def get_diff_value(diff, level):
-    if isinstance(diff, dict):
-        line = []
-        indent_size = INDENT * level
-        line_indent = (indent_size - MARK_SIZE) * REPLACE
-        for key, val in diff.items():
-            text_value = (f"{line_indent}{MARK['nested']}{key}: "
-                          f"{get_diff_value(val, level + 1)}")
-            line.append(text_value)
-        line_indent = INDENT * (level - 1) * REPLACE
-        result = itertools.chain('{', line, [line_indent + '}'])
-        return '\n'.join(result)
-    return str_lower(diff)
+
 
 
 def get_stylish(diff):
+    def get_diff_value(diff, level):
+        if isinstance(diff, dict):
+            line = []
+            indent_size = INDENT * level
+            line_indent = (indent_size - MARK_SIZE) * REPLACE
+            for key, val in diff.items():
+                text_value = (f"{line_indent}{MARK['nested']}{key}: "
+                              f"{get_diff_value(val, level + 1)}")
+                line.append(text_value)
+            line_indent = INDENT * (level - 1) * REPLACE
+            result = itertools.chain('{', line, [line_indent + '}'])
+            return '\n'.join(result)
+        return str_lower(diff)
+
+
     def inner(diff, level):
         line = []
         indent_size = INDENT * level
