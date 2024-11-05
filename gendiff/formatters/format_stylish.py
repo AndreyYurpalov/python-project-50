@@ -2,54 +2,46 @@ import itertools
 from gendiff.formatters.str_lower import str_lower
 
 
-# MARK, INDENT, REPLACE, MARK_SIZE formatting options
-# for functions get_diff_value, get_stylish
-MARK = {'added': '+ ', 'deleted': '- ', 'unchanged': '  ', 'nested': '  '}
-INDENT = 4
-REPLACE = ' '
-MARK_SIZE = 2
+def get_stylish(diff, replace=' ', indent=4):
+    mark = {'added': '+ ', 'deleted': '- ', 'unchanged': '  ', 'nested': '  '}
 
-
-
-
-
-def get_stylish(diff):
-    def get_diff_value(diff, level):
+    def get_ch_diff(diff, level):
         if isinstance(diff, dict):
             line = []
-            indent_size = INDENT * level
-            line_indent = (indent_size - MARK_SIZE) * REPLACE
+            mark_size = 2
+            indent_size = indent * level
+            currient_indent = (indent_size - mark_size) * replace
             for key, val in diff.items():
-                text_value = (f"{line_indent}{MARK['nested']}{key}: "
-                              f"{get_diff_value(val, level + 1)}")
+                text_value = (f"{currient_indent}{mark['nested']}{key}: "
+                              f"{get_ch_diff(val, level + 1)}")
                 line.append(text_value)
-            line_indent = INDENT * (level - 1) * REPLACE
-            result = itertools.chain('{', line, [line_indent + '}'])
+            currient_indent = indent * (level - 1) * replace
+            result = itertools.chain('{', line, [currient_indent + '}'])
             return '\n'.join(result)
         return str_lower(diff)
 
-
     def inner(diff, level):
         line = []
-        indent_size = INDENT * level
-        line_indent = (indent_size - MARK_SIZE) * REPLACE
+        mark_size = 2
+        indent_size = indent * level
+        line_indent = (indent_size - mark_size) * replace
         for child in diff.get('childs'):
             type = str(child['type'])
             if type == 'nested':
-                line.append(f"{line_indent}{MARK[type]}{child['name']}: "
+                line.append(f"{line_indent}{mark[type]}{child['name']}: "
                             f"{inner(child, level + 1)}")
             elif type == 'changed':
-                text = (f"{line_indent}{MARK['deleted']}"
+                text = (f"{line_indent}{mark['deleted']}"
                         f"{child['name']}: "
-                        f"{get_diff_value(child['value']['old'], level + 1)}")
+                        f"{get_ch_diff(child['value']['old'], level + 1)}")
                 line.append(text)
-                text = (f"{line_indent}{MARK['added']}{child['name']}: "
-                        f"{get_diff_value(child['value']['new'], level + 1)}")
-                line.append(text)
+                line.append(f"{line_indent}{mark['added']}{child['name']}: "
+                            f"{get_ch_diff(child['value']['new'], level + 1)}")
             else:
-                line.append(f"{line_indent}{MARK[type]}{child['name']}: "
-                            f"{get_diff_value(child['value'], level + 1)}")
-        line_indent = INDENT * (level - 1) * REPLACE
+                line.append(f"{line_indent}{mark[type]}{child['name']}: "
+                            f"{get_ch_diff(child['value'], level + 1)}")
+        line_indent = indent * (level - 1) * replace
         result = itertools.chain('{', line, [line_indent + '}'])
         return '\n'.join(result)
+
     return inner(diff, 1)
